@@ -85,30 +85,68 @@ Các Listener được sử dụng:
 
 ---
 
-## 5. Kết quả kiểm thử (mô phỏng)
+## 5. Kết quả kiểm thử
 
-* **Tổng số request:** 500  
-* **Thời gian phản hồi trung bình:** ~350ms  
-* **Thấp nhất:** 120ms  
-* **Cao nhất:** 1200ms  
-* **Tỷ lệ lỗi:** 5% (một số request timeout khi tải nhiều ảnh/video).  
-* **Throughput:** ~40 requests/giây.  
+Sau khi thực hiện kiểm thử tải đối với trang chủ VnExpress bằng Apache JMeter với cấu hình 100 người dùng ảo và 5 vòng lặp, hệ thống ghi nhận các kết quả như sau:
+
+| Chỉ số | Giá trị |
+|---------|---------|
+| Tổng số request (Samples) | 500 |
+| Thời gian phản hồi trung bình (Average) | 1610 ms |
+| Thời gian phản hồi nhỏ nhất (Min) | 15 ms |
+| Thời gian phản hồi lớn nhất (Max) | 6587 ms |
+| Độ lệch chuẩn (Std. Dev.) | 1320.21 ms |
+| Tỷ lệ lỗi (Error %) | 25.80% |
+| Throughput | 30.8 requests/giây |
+| Received KB/sec | 6947.12 KB/s |
+| Sent KB/sec | 3.46 KB/s |
+| Avg. Bytes | 230616.9 bytes |
+
+![Summary Report](images/Ảnh 5.1.png)
+
+*Hình 5.1. Kết quả thống kê hiệu năng từ Summary Report.*
+
+Kết quả cho thấy hệ thống đã xử lý được phần lớn các yêu cầu truy cập. Thời gian phản hồi trung bình đạt 1610 ms, trong khi thời gian phản hồi lớn nhất lên tới 6587 ms. Điều này cho thấy website vẫn hoạt động ổn định nhưng có dấu hiệu chậm lại khi phải xử lý số lượng lớn yêu cầu đồng thời.
 
 ---
 
 ## 6. Nhận xét
 
-* **Về số lượng Request:** Tổng cộng 500 requests, đa số thành công.  
-* **Về Thời gian phản hồi:** Trung bình 350ms, khá ổn định, nhưng có lúc tăng cao khi tải nhiều nội dung multimedia.  
-* **Về Tỷ lệ lỗi:** 5% lỗi do timeout hoặc server từ chối khi tải nhiều ảnh/video.  
-* **Về Băng thông:** Throughput đạt 40 req/s, phù hợp với một website báo điện tử lớn.  
+### Về số lượng Request
+
+Tổng cộng 500 requests đã được gửi tới trang chủ VnExpress trong quá trình kiểm thử tải.
+
+### Về thời gian phản hồi
+
+Thời gian phản hồi trung bình là 1610 ms. Mặc dù phần lớn các request được xử lý thành công, thời gian phản hồi lớn nhất đạt 6587 ms cho thấy hệ thống có thời điểm phản hồi chậm khi chịu tải cao.
+
+### Về độ ổn định
+
+Độ lệch chuẩn đạt 1320.21 ms, cho thấy thời gian phản hồi giữa các request có sự dao động tương đối lớn. Điều này phản ánh hiệu năng hệ thống chưa hoàn toàn ổn định khi nhiều người dùng truy cập đồng thời.
+
+### Về tỷ lệ lỗi
+
+Tỷ lệ lỗi đạt 25.80%, tương đương khoảng 129 request gặp lỗi trên tổng số 500 request. Nguyên nhân có thể đến từ timeout, giới hạn kết nối hoặc cơ chế bảo vệ chống truy cập tự động của website.
+
+### Về Throughput
+
+Throughput đạt 30.8 requests/giây, cho thấy hệ thống vẫn duy trì khả năng xử lý tương đối tốt dưới tải nhưng chưa đạt hiệu năng tối ưu khi lượng truy cập tăng cao.
+
+![View Results Tree](images/Ảnh 3.5.png)
+
+*Hình 6.1. Kết quả phản hồi của một request trong View Results Tree.*
 
 ---
 
 ## 7. Kết luận
 
-Bài thực hành đã hoàn thành đầy đủ yêu cầu:  
-* Biết cách thiết lập Test Plan, Thread Group và HTTP Request cho website.  
-* Sử dụng Listener để thu thập dữ liệu.  
-* Phân tích số liệu để đánh giá hiệu năng website.  
-* Nhận thấy website VnExpress hoạt động ổn định, nhưng khi tải nhiều nội dung multimedia thì có thể xuất hiện lỗi timeout.  
+Bài thực hành đã hoàn thành đầy đủ các yêu cầu đặt ra:
+
+- Thiết lập thành công Test Plan trong Apache JMeter.
+- Cấu hình Thread Group để mô phỏng người dùng ảo.
+- Sử dụng HTTP Request để gửi yêu cầu tới website VnExpress.
+- Sử dụng Response Assertion để kiểm tra nội dung phản hồi.
+- Thu thập dữ liệu bằng View Results Tree và Summary Report.
+- Phân tích các chỉ số hiệu năng như Response Time, Throughput và Error Rate.
+
+Kết quả kiểm thử cho thấy website VnExpress có khả năng xử lý tốt số lượng lớn yêu cầu truy cập đồng thời. Tuy nhiên, khi tải tăng cao, hệ thống xuất hiện tỷ lệ lỗi khoảng 25.80% và thời gian phản hồi có thể tăng lên hơn 6 giây. Điều này cho thấy hiệu năng hệ thống vẫn bị ảnh hưởng khi hoạt động dưới tải lớn và cần được tối ưu thêm để nâng cao khả năng đáp ứng.
