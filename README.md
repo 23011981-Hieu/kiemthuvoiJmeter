@@ -102,7 +102,7 @@ Sau khi thực hiện kiểm thử tải đối với trang chủ VnExpress bằ
 | Sent KB/sec | 3.46 KB/s |
 | Avg. Bytes | 230616.9 bytes |
 
-![Summary Report](images/ảảnh 5.1.png)
+![Summary Report](images/ảnh 5.1.png)
 
 *Hình 5.1. Kết quả thống kê hiệu năng từ Summary Report.*
 
@@ -132,7 +132,7 @@ Tỷ lệ lỗi đạt 25.80%, tương đương khoảng 129 request gặp lỗi
 
 Throughput đạt 30.8 requests/giây, cho thấy hệ thống vẫn duy trì khả năng xử lý tương đối tốt dưới tải nhưng chưa đạt hiệu năng tối ưu khi lượng truy cập tăng cao.
 
-![View Results Tree](images/ảảnh 3.5.png)
+![View Results Tree](images/ảnh 3.5.png)
 
 *Hình 6.1. Kết quả phản hồi của một request trong View Results Tree.*
 
